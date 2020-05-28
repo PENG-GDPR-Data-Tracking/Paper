@@ -1,0 +1,167 @@
+Aufgabenstellung: 
+
+Agile DevOps and service-based architectures established as common practice
+• Highly dynamic and distributed development, with services being „thrown away“, re-written, and recombined multiple times a day without explicit „waterfall planning“
+• Actual and current state of personal data collection, processing and storage hard to be known
+• Still, GDPR requires data controllers to be transparent about collection, processing, and use of personal data as well as to maintain respective inventory (records of processing activities),
+comprising various information ⟶ Art. 12ff + 30 GDPR
+⟶ Employ trace-based approaches, which are widely used in DevOps-settings for gathering overall „state of play“ (and privacy-related interdependencies) in service architectures and for transforming into information required by Art. 12ff + 30 GDPR
+
+Extend an existing tracing system/toolbox of your choice (Jaeger, Zipkin, ...) to allow for trace-based collection of data required by Art. 12ff + 30 GDPR
+• Note: This also requires to develop a concept for representing respective information technically (e.g., the purposes for which a certain service processes data) as well as for codifying these into single services – previous work here exists at the ISE chair.
+• Provide accompanying tools for executing and utilizing respective tracings for meeting GDPR requirements
+• Use your own component for implementing transparency and for auto-generating „records of
+processing activities“ a self-chosen, suitable use-case which comprises multiple services, multiple processing purposes and multiple types of personal data
+• Extensions: Also consider cross-organizational service invocations etc.
+
+% 3-5 pages not escalated, substantial to the principle we are 
+% aware of the correct legal paragraphs 
+% supported by law literature
+
+Regarding your further questions:
+    2. Is this task more focused on "which data is used where?" (analyze the general personal data flow) or "whose data is used where and when?" (provide a log to the user where his data was processed)
+
+Both options would be valid. Basically, transparency and records of processing only require non-individualized info, but when you propose a technically viable solution for individualization, legal reasoning might come to the conclusion that this (positive) further increase is "reasonable" according to "the state of the art and the cost of implementation" and - tadaaa! - now might become (kind of) obligatory (in certain cases). Independently from that, the general principle of transparency obviously welcomes individualized info independently from what the law (currently) requires in detail. In the end: The more a data subject knows "what data of him/her was used where, how, and by whom for what purpose", the better (and you will have to conduct experiments on the overhead of different levels of detail, selective vs. full take etc. at a later stage). So maybe you just start thinking about how the mentioned question might be answered as far as possible.
+
+    3. Can we ignore (but still state) edge cases or should these be explicitly handled? (e.g. telephone numbers are not always personal data)
+
+Well, I am quite confident that any approach to automatically "detect" personal data will not work because the personal data that is handled in a system can be so manifold. Think a customer id connected to continuously monitored health parameters. These health parameters themselves would clearly be personal data because the controller is able to resolve it to the person. Instead of automatically detecting, I could imagine sth. Like sketched below, but you may very well also come up with completely different approaches - highly welcome.
+
+    4. The task state "This also requires to develop a concept for representing respective information technically (e.g., the purposes for which a certain service processes data) as well as for codifying these into single services"
+    What is meant by "codifying these into single services"? Should there be a guarding rail that prohibits services from using some kind of data? Or is this simply referencing service to a certain processing purpose?
+
+What I had in mind here was sth like putting decorators or indicators to the code or some sort of explicit configuration along the implementation. E.g., we had a Master's thesis where the OpenAPI specification of API endpoints could be extended with (schema) elements specifically dedicated to indicating that this endpoint "processes profile data and running routes" serves "the following 3 out of 34 pre-defined purposes". In the attached paper, we rudimentarily sketched sth like this for trace-related configurations (albeit with a way lower complexity than what would be needed in practice). In any case, if you do not come up with a completely different approach (which would, again, be highly welcome), you will presumably need sth like this.
+
+
+
+
+
+__Tech Report: 
+
+As laid out in the second lesson, the TechReport shall (taking care of the page limit):
+
+Lucas
+[I] * (1 Seite) 
+Briefly sketch the “privacy principle“ you are about to address with your semester subject (legal grounding is highly welcome)  
+
+% privacy by transparency art12ff + (evtl. 30??)
+% legal ground citations fron gdpr, table from \cite{ErnstTransparencyComputing} extend for location and more detailed description of data we want to collect
+% GDPR legal grounding social aspects? 
+% name his favourite sentence "if this tech will get mainstream it will be required by law"
+% Other legal grounds: California? USA? other 
+% Lesson 3: why privacy is a "blurry" concept, "abstract" goals, what societally agreed upon as necessary / helpful principles are 
+
+
+Lucas 
+[II] * (1 Seite) - The Problem 
+Describe the particular (still rather generic) technical givens (the use-case) in the light of which you are going to consider and technically address the principle
+
+% Describe current setting (top-down GDPR policies) and current development practices (agile) expressing the need for a better (our) solution
+% Different Domains clashing ( Developer <> Data Privacy Law (Jura))
+% \cite{ErnstTransparencyComputing} only on service level but reasons should be give more fine grained (e.g. monolithic architecture, not everything is processed with the same purpose
+% otherway around data types are the same in a system this don't have to be redefined for each service) 
+
+
+
+Piotrek
+[III] * (2 Seite) - Particular Challenges of the Problem
+Identify (ideally: model) particular challenges arising in this context
+
+
+% list currently problems, (preferably which will be easier with our setup) 
+% many people involved that do not have knowledge of the other domain - our tool should enable (for example) Data Protection Officers to annotate API without them needing to understand the "code" (implementation) 
+% mostly manual processes
+% gap between user consent and system obligations 
+% different law environments (e.g. Europe and California) (ideally the tool should be able to support multiple / we leave this as Future Work)
+
+% Law is specific to a given location and may change over time -> the system should be extensible enough to be able to adapt to the changing environment, but also not to "forget" the past legal environment (even if some things are not required by law anymore)
+% - developers have even more things to do, because they now have to specify the GDPR settings aswell (with current solutions aswell as with our) whats the difference? 
+
+Piotrek / Lucas
+[IV] * (2 Seite) - Describe current Solutions to challenges of the problem 
+Identify and present the state of scientific discussions with regard to technically addressing the principle in similar/comparable settings
+
+% Explain current solutions in short 
+ - privacy languages: 
+     - Yappl \cite{Ulbricht2018YaPPLScenarios},
+     - TCF: \cite{2019IABFramework-Policies}
+ - transparency tracing \cite{ErnstTransparencyComputing},
+ - static analysis \cite{Spoto2018StaticCompliance},
+ - privacyTracker \cite{2016PrivacyTracker:Controls}
+ other papers ?? )
+
+
+Daniel 
+[V] * (1 Seite) - Which tech do we use? What is it? 
+Identify and technically describe available technologies that might be used (if any)
+
+% explain OpenAPI (maybe some history of swagger as well, but not too lengthy) 
+% maybe the differences between Swagger(v2) and OpenAPI(v3)? JSONSchema 
+% Computer-readable format is needed to be make automated (or semi-automated) processing possible -> OpenAPI is a standard allowing us to describe APIs
+% explain tracing frameworks like Zipkin and Jaeger
+% explain static analysis
+% runtime variables in cloud, eg. location (AWS has variables) 
+
+Daniel 
+[VI] * (1 Seite) - 
+Assess practical viability of said technologies
+
+% formulate why we used static analysis or tracing frameworks and which tradeoffs these have
+% maybe some usage statistics about OpenAPI / tracking / other tools? How many developers are using it? Is it easy to implement? 
+% Why these solutions? What are alternatives and why did we not choose them? 
+% Ranking of Tools? 
+% How much effort is it? 
+
+% OpenAPI is very versatile: Code can be annotated to generate the specification, but there are also Code generation solutions that generate code from the spec itself.
+
+
+Daniel 
+[VII] * (2 Seite)
+Provide a (sketchy) outlook about what you are going to implement (esp. your re-usable component)
+
+- Diagramm sketch 
+- flow diagram 
+
+ - Reusable Component: 
+    - OpenAPI Specification based on "Transparency Tracing v2"
+      - 
+    - Middleware for adding purpose to requests 
+    - Zero Config - Middleware -> % should log to localhost by default? 
+    
+    - Visualization of said trace 
+    - Decorator pattern for adding specification easily to OpenAPI % and enable logging itself?
+    - static analysis tool for tracing the data flow
+
+
+
+
+Please also have in mind the formal requirements:
+
+*
+3-4 (max 5) pages per team member (excluding title, abstract, TOC;
+including references)
+
+*
+Min 10pt, max 12pt standard font; “reasonable“ margins; justified
+typeset; ... (in case of doubt, use established template, e.g., Springer,
+IEEE, ...)
+
+
+Notizen: 
+Hauptaugenmerk auf technischer Implementierung --> cooles Stück Code umso näher an tatsächlicher Umgenbung umso besser
+
+- mehrere Sevices die ineinander greifen und sich gegenseitig aufrufen um die Verschachtelung aufzuzeigen
+User-Zentraldatenbanken (Stammdaten, Conten-Data) 
+
+
+- Abgabe auf English 
+- Zu Sketchy, was macht ihr eigentlich? 
+- komplexere Services 
+- Demo für letzendliche Präsentation
+- Generierung von Übersicht
+
+Wunsch: 
+ - mehr Content! 
+   - das lässt sich einsetzen
+ - 
+  

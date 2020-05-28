@@ -1,0 +1,178 @@
+Artikel 12 
+
+"provide any information" "relating to processing to the data subject in a concise, transparent, intelligible and easily accessible form," 
+
+
+https://dataedo.com/blog/what-is-personal-data-under-gdpr
+
+
+Info: 
+GDPR defined Roles: 
+Data Controller
+Data Processor 
+Data Protection Officer 
+
+
+Verschieden zufriedenzustekkende Rollen (not defined by GDPR): \cite{Spoto2018StaticCompliance}
+DPO - Data Portection Office
+CISO - Chief  Information  Security  Officer
+PM - Project manager
+DEV - Developer
+
+
+
+__Problemstellung: 
+
+GDPR verlangt Transparenz bei der Datenverarbeitung. 
+Diese werden in Artikel 12ff festgelegt. 
+und in Artikel 30 - zur Protokollführung von Zugriffen. 
+
+In Projekten werden GDPR Policies meist in einem Top-Down Prinzip aufgestellt. 
+Dies führt schon immer zu Diskrepanzen zwischen dem eigentlichen Systemen und der beschriebenen Datenverarbeitung.
+
+
+Unser Ansatz baut auf der Trace-based-Transparency auf und bringt damit einen Bottom-Up Ansatz ein (wie er auch in vielen anderen Schriften vorgeschlagen wird) \cite{DelacroixBottom-upGovernance}
+Ein Haupthindernis dabei ist der erhöhte Aufwand bei den Entwicklern die GDPR richtlinien auf den jeweiligen Services anzugeben. 
+Dies wollen wir durch Automatisierungsvorschläge im Paper und Reusable Software Components prototypisch umsetzen. 
+
+
+
+__Bisherige Ansätze: 
+- Trace Based \cite{ErnstTransparencyComputing} 
+reporting 
+ * purpose
+ * legal-base (and legitimate-interest)
+ * data-categories
+ * storage-ttl 
+ * automation
+ * recipients (third-paries)
+ * sources 
+ not used in paper: 
+ * location of processing
+
+
+- static anlysis \cite{Spoto2018StaticCompliance}
+Could detect possible data sinks and report them, 
+
+Anknüpfungspunkte: 
+
+Consent Management Sprachen: 
+YaPPl 
+
+https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework/blob/master/TCFv2/IAB%20Tech%20Lab%20-%20CMP%20API%20v2.md
+
+
+__Unser Ansatz: 
+
+Automatisierung
+Ausbau der Trace-based-Transparency: 
+ - Daten Kategorie werden nicht mehr pro System festgelegt sondern einmal an den Daten (APIs) 
+ - Standort der Verarbeitung automatisch festlegen (Middleware - IP-Standort Mapping)
+ - 
+ 
+ 
+ 
+ 
+(evtl kann man dies auch schon statisch analysieren?) 
+   - Adressen und Methoden meist schon vorher bekannt
+   
+   
+Non-Goals: 
+ - Building an evaluation framework for testing if the system suffices GDPR (e.g. if delete methods are implemented) 
+ 
+ 
+ Use Case: 
+ 
+ Schlaftracking mit Apps 
+ 
+ Name, 
+ Geburtsdatum 
+ 
+ biometrische Daten: 
+ Größe,
+ Gewicht,
+ Geschlecht,
+ Alter?
+ 
+ Health Data: 
+ Schlafzeit
+ 
+ 
+ User App: 
+ API
+ Nutzerdatenbank
+ API
+ Schlafdaten-Verarbeitung 
+ API
+ getrackte-Schlafdaten
+ API
+ Anonymen-Überblick 
+ 
+ Weitere: 
+ (Teilen-Funktion) ähnl. Facebook Wrapper
+  evtl. Adresse für Goodies 
+ 
+ 
+ 
+ 
+
+
+
+% Which technology is already available? 
+
+% Use Jaeger? 
+% Idea: Univerity Campus with all the different systems
+
+
+% Implement Jaeger Tracing with message metadata analysis (only get property names)
+% Match those properties against one antoher for the different systems to get to know where which data is send, maybe also track on the basis of Ids 
+% categorize data into GDPR categories (anonymous, personal, especially protected)
+% 
+% 1. Middleware (implemented in the app/backend, like Jaeger) for tracking data properties of a request automatically 
+%    How to seperate User properties from other (id, paging, etc.) 
+%    Blacklisting properties which dont have effect (no whitelisting, because defies sytems goals) 
+
+%    How to handle different format? XML, JSON, Binary, CSV
+
+
+% 2. Data Analyzation 
+%    - How to handle Mapping of properties to GDPR Data goals?
+%    - 
+
+
+Handling edge cases: 
+  - Telephone numbers (company numbers are not personal) --> Over-Sensitivity 
+  - Data including indreict special categories (e.g buying / messaging containing indirect categories e.g. buying religiois stuff, talking about political opinions) 
+
+% our impact: 
+% Get location placement automatically: https://stackoverflow.com/questions/4249488/find-region-from-within-an-ec2-instance
+% Extending previous work "GDPR Tracing v2" 
+% Auto Mapping Used Data to user categories (or aggregating them on a higher level) maybe via openapi 
+% validating the schema for metadata of 
+% Maybe testing the overhead? or sketching possible ways of running this in production? 
+% Neue OpenTelemetry 
+
+
+
+
+% Fragen an Frank: 
+% Server, bekommen wir Infrastruktur? 
+%  No - get some free credits! 
+
+% Welche andere Paper? -> Auf der Seite der ISE.tu-berlin?
+
+% Sollte der Server auch Request Blocking ermöglichen oder ist uns nur Loggen wichtig? Ist es Fokus dieser Arbeit?
+
+% How to handle different formats?
+
+% Fokus: Soll getrackt werden wer welche Daten eingesehen hat? 
+
+% What is meant by this? Especially: 
+% "purpose for certain services" - should this be automatically or via code inspection? 
+% "codifying into a single service"? 
+% This also requires to develop a concept for representing respective information technically
+% (e.g., the purposes for which a certain service processes data) as well as for codifying these into
+% single services – previous work here exists at the ISE chair.
+
+
+% GDPR Article 12 

@@ -17,54 +17,34 @@ Towards a GDPR-focused tracing Toolbox\\
 should not be used}
 }
 
-\author{\IEEEauthorblockN{Piotr Witkowski}
-\IEEEauthorblockA{\textit{Masters Student} \\
-\textit{TU Berlin}\\
-Berlin, Berlin \\
-email address or ORCID}
+\author{
+    \IEEEauthorblockN{Daniel Habenicht}
+    \IEEEauthorblockA{\textit{Masters Student} \\
+    \textit{TU Berlin}\\
+    Berlin, Berlin \\
+    email address or ORCID}
 \and
-\IEEEauthorblockN{Lucas Kettenmann}
-\IEEEauthorblockA{\textit{Masters Student} \\
-\textit{TU Berlin}\\
-Berlin, Berlin \\
-email address or ORCID}
+    \IEEEauthorblockN{Lucas Kettenmann}
+    \IEEEauthorblockA{\textit{Masters Student} \\
+    \textit{TU Berlin}\\
+    Berlin, Berlin \\
+    email address or ORCID}
 \and
-\IEEEauthorblockN{Daniel Habenicht}
-\IEEEauthorblockA{\textit{Masters Student} \\
-\textit{TU Berlin}\\
-Berlin, Berlin \\
-email address or ORCID}
+    \IEEEauthorblockN{Piotr Witkowski}
+    \IEEEauthorblockA{\textit{Masters Student} \\
+    \textit{TU Berlin}\\
+    Berlin, Berlin \\
+    email address or ORCID}
 }
 
 \maketitle
 
-% Aufgabenstellung: 
 
-% Agile DevOps and service-based architectures established as common practice
-%• Highly dynamic and distributed development, with services being „thrown away“, re-written, and recombined multiple times a day without explicit „waterfall planning“
-%• Actual and current state of personal data collection, processing and storage hard to be known
-%• Still, GDPR requires data controllers to be transparent about collection, processing, and use of
-%personal data as well as to maintain respective inventory (records of processing activities),
-%comprising various information ⟶ Art. 12ff + 30 GDPR
-%⟶ Employ trace-based approaches, which are widely used in DevOps-settings for gathering overall
-%„state of play“ (and privacy-related interdependencies) in service architectures and for transforming
-%into information required by Art. 12ff + 30 GDPR
 
-%Extend an existing tracing system/toolbox of your choice (Jaeger, Zipkin, ...) to allow for trace-based
-%collection of data required by Art. 12ff + 30 GDPR
-%• Note: This also requires to develop a concept for representing respective information technically
-%(e.g., the purposes for which a certain service processes data) as well as for codifying these into
-%single services – previous work here exists at the ISE chair.
-%• Provide accompanying tools for executing and utilizing respective tracings for meeting GDPR
-%requirements
-%• Use your own component for implementing transparency and for auto-generating „records of
-%processing activities“ a self-chosen, suitable use-case which comprises multiple services, multiple
-%processing purposes and multiple types of personal data
-%• Extensions: Also consider cross-organizational service invocations etc.
+
 
 \begin{abstract}
-This document is a model and instructions for \LaTeX.
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
+Blala lal This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
 or Math in Paper Title or Abstract.
 \end{abstract}
 
@@ -278,6 +258,9 @@ element symbols.
 For papers published in translation journals, please give the English 
 citation first, followed by the original foreign-language citation \cite{b6}.
 
+\bibliographystyle{plain}
+\bibliography{refs}
+
 \begin{thebibliography}{00}
 \bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
 \bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
@@ -287,8 +270,6 @@ citation first, followed by the original foreign-language citation \cite{b6}.
 \bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
 \bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
 \end{thebibliography}
-\vspace{12pt}
-\color{red}
-IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
+
 
 \end{document}
