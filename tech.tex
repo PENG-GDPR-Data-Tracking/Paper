@@ -1,0 +1,101 @@
+\subsection{Analysis and viability of technologies}
+%  Which tech do we use? What is it? 
+% Identify and technically describe available technologies that might be used (if any)
+
+
+
+OpenApi is the most common standard for \ac{api} descriptions defining the interface between services. Most of the other standards are providing migrations or compatibility to the OpenAPI standard \cite{Scherer2016DescriptionTransformation} 
+% https://github.com/oasis-tcs/odata-openapi
+
+
+It is supported by the OpenApi initative, which is joined by major companies like Microsoft, Google, \cite{TheLinuxFoundation2020CurrentInitiative}
+The standard developed from the Swagger Specification and is now almost 9 years old. 
+
+OpenAPI is partly based on JSON SChema language which describes JSON Payload 
+
+
+
+For our prototype we are using NodeJS Services
+
+based on Express 
+
+Javascript/Typescript Language for object oriented programmming which provides both typed experience and untyped functions. This will speed up and make. 
+
+As the prototype will not reach production status we do no not need to factor in runtime performances. 
+
+\subsection{Short Introduction to Technologies}
+
+
+
+
+% explain OpenAPI (maybe some history of swagger as well, but not too lengthy) 
+% maybe the differences between Swagger(v2) and OpenAPI(v3)? JSONSchema 
+% Computer-readable format is needed to be make automated (or semi-automated) processing possible -> OpenAPI is a standard allowing us to describe APIs
+% explain tracing frameworks like Zipkin and Jaeger
+% explain static analysis
+% runtime variables in cloud, eg. location (AWS has variables) 
+
+\subsection{Short Introduction to Technologies}
+% Assess practical viability of said technologies
+
+
+
+% formulate why we used static analysis or tracing frameworks and which tradeoffs these have
+% maybe some usage statistics about OpenAPI / tracking / other tools? How many developers are using it? Is it easy to implement? 
+% Why these solutions? What are alternatives and why did we not choose them? 
+% Ranking of Tools? 
+% How much effort is it? 
+
+% OpenAPI is very versatile: Code can be annotated to generate the specification, but there are also Code generation solutions that generate code from the spec itself.
+
+
+\subsection{Prototype}
+% Provide a (sketchy) outlook about what you are going to implement (esp. your re-usable component)
+
+As described in section \ref{} (Problem) we want to make it easier to track the processing of data throughout applications. We based this on defining the type of data in a central place, which we identiefied as OpenAPI. In order to track data inside of the application we also need a service middleware, which enriches a request with the legal context and logs the type of data transferred. 
+Collecting the 
+Our Prototype will be set up in a business context. It will simulate a sleep tracking app. Which collects different categories of personal data for differents purposes, while beeing based on a microservice architecture. 
+
+It will roughly look like the system shown in Figure \ref{fig}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics{fig1.png}}
+\caption{Sketch of our prototype system}
+\label{fig}
+\end{figure}
+
+Our reusable software components can be split into three main areas: 
+
+\begin{itemize}
+    \item Schema Specifications
+    \item Service Middleware 
+    \item data collector 
+\end{itemize}
+
+
+
+This could be extended by providing decorators for easier schema specifactions or visualizations for the output data. 
+% - Diagramm sketch 
+% - flow diagram 
+
+% - Reusable Component: 
+%    - OpenAPI Specification based on "Transparency Tracing v2"
+%    - Middleware for adding purpose to requests 
+%       https://rhonabwy.com/2019/01/06/adding-tracing-with-jaeger-to-an-express-application/
+%    - Linter for checking those: https://palantir.github.io/tslint/develop/custom-rules/
+%     % https://medium.com/@andrey.igorevich.borisov/writing-custom-tslint-rules-from-scratch-62e7f0237124
+%    - Zero Config - Middleware -> % should log to localhost by default? 
+    % https://expressjs.com/en/guide/writing-middleware.html
+    
+    
+%    - Visualization of said trace 
+%    - Decorator pattern for adding specification easily to OpenAPI % and enable logging itself?
+%    - static analysis tool for tracing the data flow
+
+Goals: 
+ - address that services are mostly not microservices in the sense of they fulfill only one purpose (in a GDPR sense) but are fulfilling multiple purposes. e.g. a (example from our system) This has to be taken care of at the application level, for each data request) 
+ 
+ Because there are a multitude of different languages and each langauge has multiple frameworks and tools for making web requests or fetching data we propose a set of easy linting rules which can be applied to each request made and rewritten. 
+ 
+ 
+ Another pain point is 
