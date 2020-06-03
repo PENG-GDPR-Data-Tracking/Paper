@@ -1,4 +1,4 @@
-\subsection{Legal requirements regarding privacy}
+\subsection{Legal requirements and the principle of transparency}
 % Briefly sketch the “privacy principle“ you are about to address with your semester subject (legal grounding is highly welcome)  
 
 % Interesting Link: https://www.i-scoop.eu/gdpr/legal-grounds-lawful-processing-personal-data/
@@ -9,10 +9,25 @@
 % Other legal grounds: California? USA? other 
 % Lesson 3: why privacy is a "blurry" concept, "abstract" goals, what societally agreed upon as necessary / helpful principles are 
 
+A main reason for the necessity of new approaches and tools regarding privacy is the General Data Protection Regulation (GDPR) which became effective in May 2018. Still to this day many companies struggle to adhere to this regulations, which opens up both challenges and chances.
 
-\subsection{Problem definition}
+The GDPR regulates the processing of personal data ("'personal data' means any information relating to an identified or identifiable natural person", GDPR Art. 4(1)) \cite{EuropeanParliamentandoftheCouncil3026GeneralRegulation}). In such it differs between the natural person whose data is processed, also called the "data subject", and the entity which " determines the purposes and means of the processing of personal data" (GDPR Art. 4(7) \cite{EuropeanParliamentandoftheCouncil3026GeneralRegulation} as "controller". The "processor" is the entity which does the actual processing of the 
+data on behalf of the controller (GDPR Art. 4(8)) \cite{EuropeanParliamentandoftheCouncil3026GeneralRegulation}.
+
+Art. 12-15 of the GDPR require that all the personal data of a data subject including the reasons to process it (GDPR Art. 13(1d), 14(2b) as well as the processed data itself (GDPR Art. 15(3, 4)\cite{EuropeanParliamentandoftheCouncil3026GeneralRegulation}) are to be provided to the data subject by the controller. Furthermore it is necessary for a controller to "maintain a record of processing activities under its responsibility" (GDPR Art. 30(1) \cite{EuropeanParliamentandoftheCouncil3026GeneralRegulation}).
+
+The above mentioned articles are part of the principle of transparency (GDPR Art. 5(1) \cite{EuropeanParliamentandoftheCouncil3026GeneralRegulation}) which assumes that the controller is clearly stating the processed data it's purpose to the data subject. To accumulate this data the controller needs to be aware of all components in a system which are conduction data processing of personal data and the purpose of the processing. A solution for this problem will be presented by this paper.
+
+
+\subsection{Problem definition}\label{problem}
 
 % Describe current setting (top-down GDPR policies) and current development practices (agile) expressing the need for a better (our) solution
 % Different Domains clashing ( Developer <> Data Privacy Law (Jura))
 % \cite{ErnstTransparencyComputing} only on service level but reasons should be give more fine grained (e.g. monolithic architecture, not everything is processed with the same purpose
-% otherway around data types are the same in a system this don't have to be redefined for each service) 
+% otherway around data types are the same in a system this don't have to be redefined for each service)
+
+A straightforward approach for tracing the personal data which is collected and processed by a system with privacy in mind would be top-down. Different systems are identified and manually evaluated for GDPR relevant user data. Rather time intensive processes for the identification and cataloguing of this data are required, and even if those processes are well-defined and carried out with utmost diligence the risk of overlooking certain data in complex systems is high.
+
+As systems change, this data needs to be kept up-to-date. In recent years agile development approaches have become more and more common, such as Scrum, Kanban or Extreme Programming. Clustered, rather independent teams change individual system components multiple times a week or even a day while automated processes verify the system integrity. This opens up the opportunity for automated tracing of the processing of privacy related data and it's adherence to the privacy principles required by the GDPR. Obviously, the top-down approach to privacy is not feasible in the context of small, dispersed teams and rapidly changing systems with many independent components.
+
+A bottom-up approach, where data is identified from within the system components themself, can facilitate the process of maintaining a database of handled user data. This would require every developer of a system or system component to report the privacy-related data which is processed by it to a central site. This process requires a considerable amount of work, especially in larger companies with non streamlined processes and clustered competences. In a real-world scenario it is unrealistic to assume that every developer of a large system will accurately report any user data his components are using. An automated approach to this will mitigate the human weak point and standardize it to achieve consistent results by embedding the report functionality into the system as a mandatory part of the communications protocol. By linking every packet of data to it's purpose in terms of privacy and the GDPR all user data in the system becomes traceable. As such a system-wide analysis can be conducted and the data can be made available condoning to the principle of transparency.

@@ -1,0 +1,36 @@
+\section{Particular Challenges of the Problem}
+In this chapter we would like to identify particular challenges in the context of creating a GDPR-focused tracing Toolbox. To carry out this task in a systematic way, we recognize two basic approaches: 
+
+\begin{enumerate}
+    \item following sensitive data from the perspective of its users or
+    \item  from the perspective of system architects, application developers and the organizations themselves, which enable their users to upload data to these systems.
+\end{enumerate}
+
+Naturally, the first approach flows directly and should be extracted from the rights enjoyed by the person whose data is being processed. For us, however, a more interesting and, hopefully, also leading to the same goal of protecting users' privacy (and indirectly acting in accordance with the law) is the second approach, which allows us to discover challenges from the perspective of entities responsible for implementing appropriate mechanisms and final execution of the rights arising from the GDPR.
+
+\subsection{Heterogeneity of the systems}
+% many people involved that do not have knowledge of the other domain - our tool should enable (for example) Data Protection Officers to annotate API without them needing to understand the "code" (implementation)
+Because our work is embedded in the DevOps background, the first problem we would like to address is the heterogeneity of systems, and more precisely
+
+\begin{itemize}
+    \item variety of data processed by applications,
+    \item variety of technologies in which applications are created (programming languages and language-specific frameworks),
+    \item a variety of cloud environments in which these applications are running.
+\end{itemize}
+
+Ernst and Pallas argue that ''accountability of processing activities of personal data [...] fundamentally collide with dynamic, agile software engineering practices established in the context of microservices and DevOps'' \cite{ErnstTransparencyComputing}, but we would like to point out, if we could minimize the impact of the abovementioned disadvantages, the issues related to the agile methodology in the context of privacy could be greatly simplified in a broader view. By providing a unified way of describing the data collected and made available to others by the application's API, it ceases to matter whether the application is distributed, how many microservices it consists of, how various technological stacks were used, and finally in what environment it is running. In addition, it would be possible to analyze the application (based on its API) by internal and external auditors related to the area of the data protection, such as Data Protection Officers and legal authorities. Data Protection Officers should be able to inspect what kind of data is processed without needing to understand the code and framework-dependent mechanisms utilized for the development. On the other side, full-stack developers, responsible in the agile team for virtually every single aspect of how a given microservice works, would be responsible only for completeness of their API description and not its legal compliance. 
+
+\subsection{Reusable API descriptions and developer experience improvements}
+
+% mostly manual processes
+% - developers have even more things to do, because they now have to specify the GDPR settings as well - with our solution it may be reusable some day in the future... 
+A highly expected feature, not only in the scientific community, but also by the users and data collectors themselves is the automation of data collection tracking. By users because they expect the completeness and consistency of data usage supervision processes. By data collectors - to achieve compliance at a lower cost. On the one hand, some automation is needed, i.e., for example, every single activity must be traced. On the other hand, complete automation of such a process is virtually impossible to achieve. The variable is not only the application architecture itself (for example ''if a service is removed or added to an architecture or when a new category of personal data is collected by a service'' \cite{ErnstTransparencyComputing}), but also the legal environment encoded in the form of the written text may be subject to changes. With the current state of technology, it can be assumed that codification of privacy law in a form that can be directly processed by computer programs is still quite a distant future, although some initial theoretical foundations already exist, see \cite{Spiekermann2006TechnologyComputing}. At the same time, as in the entire history of computer science, the value is the maximum "shift" of what computer programs can do with the most compact program or specification possible. Our goal must therefore be to look for a way to describe APIs, which must be a concise, understandable to both humans and computers, and should also allow its re-use in the future, for example to generate the next iteration of the system, that is compliant with the latest legislative changes. Automatic generation of the program code from such a specification, or vice versa, generation of concise specification from code could be the ultimate feature of such a system.
+
+\subsection{Context-preserving mechanisms for variable legal environments}
+% Law is specific to a given location and may change over time -> the system should be extensible enough to be able to adapt to the changing environment, but also not to "forget" the past legal environment (even if some things are not required by law anymore)
+% different law environments (e.g. Europe and California) (ideally the tool should be able to support multiple / we leave this as Future Work)
+We have already mentioned that the law is specific to a given physical location and may change over time. This idea should be complemented by the "context memory" in which the data were collected or shared. Even if at some later time some of the activities do not need to be tracked any more, it is important that the system is able to keep historical events in order with the regulations and their "context" at the time.
+
+% gap between user consent and system obligations 
+% I still hesitate if we should describe it, it is a little bit little for a paragraph
+

@@ -2,16 +2,32 @@
 %  Which tech do we use? What is it? 
 % Identify and technically describe available technologies that might be used (if any)
 
+Applying the \ac{gdpr} becomes especially difficult when data is transferred from one system to another. The most common \ac{api} Standard in between services is \ac{rest}, which is used for over 80\% \cite{CloudElements2017TheIntegration} of the \glspl{api} in 2017. In order to document \ac{rest} \glspl{api} multiple standards emerged, for example API Blueprint, I/O Docs, Swagger, RAML, WADL and WSDL \cite{Scherer2016DescriptionTransformation}. The general standard nowadays is the \ac{oas}, which emerged from the Swagger Standard. OpenAPI was ranked as the fourth most important technology for people working with \glspl{api} \cite{2019Technologies2019}. 
 
+\begin{quote}
+"The OpenAPI Specification defines a standard, programming language-agnostic interface description for REST APIs, which allows both humans and computers to discover and understand the capabilities of a service without requiring access to source code, additional documentation, or inspection of network traffic. [\dots]"
+\cite{OpenAPISpecification}
+\end{quote}
 
-OpenApi is the most common standard for \ac{api} descriptions defining the interface between services. Most of the other standards are providing migrations or compatibility to the OpenAPI standard \cite{Scherer2016DescriptionTransformation} 
+Most of the previously named standards are providing migrations or compatibility to the OpenAPI standard \cite{Scherer2016DescriptionTransformation}.
 % https://github.com/oasis-tcs/odata-openapi
 
 
 It is supported by the OpenApi initative, which is joined by major companies like Microsoft, Google, \cite{TheLinuxFoundation2020CurrentInitiative}
 The standard developed from the Swagger Specification and is now almost 9 years old. 
 
-OpenAPI is partly based on JSON SChema language which describes JSON Payload 
+OpenAPI is partly based on JSON Schema language which describes JSON Payload 
+
+
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.4\textwidth]{figures/json_schema_example.png}}
+\caption{Example of Json Schema used in OpenAPI \cite{MiscellaneousSchema}}
+\label{json_schema_example}
+\end{figure}
+
+JSON Schema also allows to "outsoure" the assessment of data categories to professionals. 
+
 
 
 
@@ -35,10 +51,7 @@ As the prototype will not reach production status we do no not need to factor in
 % explain static analysis
 % runtime variables in cloud, eg. location (AWS has variables) 
 
-\subsection{Short Introduction to Technologies}
 % Assess practical viability of said technologies
-
-
 
 % formulate why we used static analysis or tracing frameworks and which tradeoffs these have
 % maybe some usage statistics about OpenAPI / tracking / other tools? How many developers are using it? Is it easy to implement? 
@@ -52,16 +65,17 @@ As the prototype will not reach production status we do no not need to factor in
 \subsection{Prototype}
 % Provide a (sketchy) outlook about what you are going to implement (esp. your re-usable component)
 
-As described in section \ref{} (Problem) we want to make it easier to track the processing of data throughout applications. We based this on defining the type of data in a central place, which we identiefied as OpenAPI. In order to track data inside of the application we also need a service middleware, which enriches a request with the legal context and logs the type of data transferred. 
+As described in section \ref{problem} we want to make it easier to track data throughout multiple applications and make it more clear for which purposes . 
+We based this on defining the type of data in a central place, which we identiefied as OpenAPI. In order to track data inside of the application we also need a service middleware, which enriches a request with the legal context and logs the type of data transferred. 
 Collecting the 
-Our Prototype will be set up in a business context. It will simulate a sleep tracking app. Which collects different categories of personal data for differents purposes, while beeing based on a microservice architecture. 
+Our Prototype will be set up in a business context. It will simulate a sleep tracking app. Which collects different categories of personal data for different purposes, while being based on a micro-service architecture. 
 
-It will roughly look like the system shown in Figure \ref{fig}
+It will roughly look like the system shown in Figure \ref{prototype_system}
 
 \begin{figure}[htbp]
-\centerline{\includegraphics{fig1.png}}
+\centerline{\includegraphics[width=0.4\textwidth]{figures/prototype_system.png}}
 \caption{Sketch of our prototype system}
-\label{fig}
+\label{prototype_system}
 \end{figure}
 
 Our reusable software components can be split into three main areas: 
@@ -69,7 +83,7 @@ Our reusable software components can be split into three main areas:
 \begin{itemize}
     \item Schema Specifications
     \item Service Middleware 
-    \item data collector 
+    \item Data collector and analyzer 
 \end{itemize}
 
 
@@ -93,9 +107,26 @@ This could be extended by providing decorators for easier schema specifactions o
 %    - static analysis tool for tracing the data flow
 
 Goals: 
- - address that services are mostly not microservices in the sense of they fulfill only one purpose (in a GDPR sense) but are fulfilling multiple purposes. e.g. a (example from our system) This has to be taken care of at the application level, for each data request) 
+
+While building a prototype we think that while making something technically feasible it is even more important to make it useful and easily usable. 
+
+Address that services are mostly not microservices in the sense of they fulfill only one purpose (in a GDPR sense) but are fulfilling multiple purposes. e.g. a (example from our system) This has to be taken care of at the application level, for each data request) 
+
+Another pain point is the manual work needed to work with frameworks like yappl which defines a "privacy proxy" which policies assume that the requesting service sends required data like "Institution or Service Name" and "Purpose" in order to enforce the user decision. In future version this could also be extended to related datapoints like "processing-location" "legal-base (and legitimate-interest)" "data-categories" "storage-ttl" "automted-decision-making" \dots .
+To this, at the moment the developer has to write and update these strings manually. With out proposed solution this could be partly auto generated.
  
- Because there are a multitude of different languages and each langauge has multiple frameworks and tools for making web requests or fetching data we propose a set of easy linting rules which can be applied to each request made and rewritten. 
+ 
+ Our approach takes the baseline implementation of \cite{ErnstTransparencyComputing} and updates it to be request specific, while maintaining developer comfort to failback to the centrally provided values. We do this because 
+ Because this would lead to the same status quo as before, as nobody would use the optional configuration options we propose a set of easy linting rules which can be applied to each request and inform about more detailed GDPR infos. Another option would be to implement yet another request library to make these required. But in the light of the multitude of availabe languages and the tools available for each language we find that linting rules provide the best approach to be easily rewritten for each tool. 
+ The Linter will be based on TSLint which is the standard Linting tool for typescript. 
  
  
- Another pain point is 
+ In order to fallback the 
+ 
+ For analyzing purposes we first thought of a static analysis. But this would have several limits. e.g. the used servers (database etc.) are mostly configured at runtime in the production environment. 
+
+
+Because implementing a Tracing Middleware for each request we might resort to a simpler self-written middleware or mock the responses for the analyzation step. 
+
+During the design of our prototype our subgoal is to not hinder productivity of the developer. 
+As this is one of the main pain points in current development \cite{StateDevOps}. 

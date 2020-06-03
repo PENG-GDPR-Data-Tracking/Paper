@@ -1,6 +1,4 @@
 \documentclass[conference]{IEEEtran}
-\IEEEoverridecommandlockouts
-% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
@@ -13,48 +11,27 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
     
 \makeglossaries
-\newacronym{api}{API}{Application Programming Interface}
+\newacronym[plural= API's, firstplural=Application Programming Interfaces]{api}{API}{Application Programming Interface}
+\newacronym{rest}{REST}{Representational State Transfer}
+\newacronym{gdpr}{GDPR}{General Data Protection Regulation}
+\newacronym{oas}{OAS}{OpenAPI Specification}
+
 \begin{document}
-
 \title{Working Title - Transparency and Records of processing in agile DevOps:
-Towards a GDPR-focused tracing Toolbox\\
-{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
-should not be used}
+Towards a GDPR-focused tracing Toolbox
+% {\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and should not be used}
 }
 
-\author{
-    \IEEEauthorblockN{Daniel Habenicht}
-    \IEEEauthorblockA{\textit{Masters Student} \\
-    \textit{TU Berlin}\\
-    Berlin, Berlin \\
-    email address or ORCID}
-\and
-    \IEEEauthorblockN{Lucas Kettenmann}
-    \IEEEauthorblockA{\textit{Masters Student} \\
-    \textit{TU Berlin}\\
-    Berlin, Berlin \\
-    email address or ORCID}
-\and
-    \IEEEauthorblockN{Piotr Witkowski}
-    \IEEEauthorblockA{\textit{Masters Student} \\
-    \textit{TU Berlin}\\
-    Berlin, Berlin \\
-    email address or ORCID}
-}
-
+\input{authors}
 \maketitle
 
 
-
-
-
 \begin{abstract}
-Blala lal This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
-or Math in Paper Title or Abstract.
+Do Not Use Symbols, Special Characters, Footnotes, or Math in Paper Title or Abstract.
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, insert
+GDPR, DevOps, tracing
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -62,18 +39,18 @@ This document is a model and instructions for \LaTeX.
 Please observe the conference page limits. 
 
 \section{Prerequisites}
-
 \input{prerequisites}
 
-\section{Tech}
+\input{3ChallengesToTheProblem}
+\input{4ExistingSolutionsToChallengesOfTheProblem}
 
+\section{Tech}
 \input{tech}
 
+%\input{Aufgabenstelllung}
 
 \printglossaries
-
 \bibliographystyle{IEEEtran}
 \bibliography{references}
-
 
 \end{document}
